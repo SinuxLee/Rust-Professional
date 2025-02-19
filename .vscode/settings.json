@@ -1,0 +1,12 @@
+{
+    "rust-analyzer.linkedProjects": ["./Cargo.toml"],
+    "rust-analyzer.check.command": "clippy",
+    "rust-analyzer.check.targets": ["x86_64-unknown-linux-gnu"],
+    "rust-analyzer.cargo.features": "all",
+    "rust-analyzer.procMacro.enable": true,
+    "rust-analyzer.cargo.buildScripts.enable": true,
+    "rust-analyzer.diagnostics.disabled": ["unresolved-proc-macro"],
+    "rust-analyzer.cargo.extraEnv": {
+        "RUSTFLAGS": "--cfg test"
+    }
+} 
