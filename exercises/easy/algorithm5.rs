@@ -4,9 +4,9 @@
 */
 
 
-use std::collections::VecDeque;
+use std::collections::{VecDeque,HashSet};
 
-// Define a graph
+// Define a graph, 邻接矩阵
 struct Graph {
     adj: Vec<Vec<usize>>, 
 }
@@ -27,10 +27,24 @@ impl Graph {
 
     // Perform a breadth-first search on the graph, return the order of visited nodes
     fn bfs_with_return(&self, start: usize) -> Vec<usize> {
-        
-		//TODO
-
+        let mut queue = VecDeque::new();
+        let mut visited = HashSet::new();
         let mut visit_order = vec![];
+        queue.push_back(start);
+        
+        while let Some(node) = queue.pop_front() {
+            if visited.get(&node).is_some(){
+                continue;
+            }
+
+            visited.insert(node);
+            visit_order.push(node);
+            
+            self.adj[node].iter().for_each(|&neighbor| {
+                queue.push_back(neighbor);
+            })
+        }        
+
         visit_order
     }
 }

@@ -23,7 +23,15 @@ impl Graph {
     }
 
     fn dfs_util(&self, v: usize, visited: &mut HashSet<usize>, visit_order: &mut Vec<usize>) {
-        //TODO
+        if visited.get(&v).is_some(){
+            return;
+        }
+
+        visited.insert(v);
+        visit_order.push(v);
+        self.adj[v].iter().for_each(|&neighbor|{
+            self.dfs_util(neighbor, visited, visit_order);
+        });
     }
 
     // Perform a depth-first search on the graph, return the order of visited nodes
