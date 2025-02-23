@@ -1,5 +1,3 @@
-// I AM NOT DONE
-
 mod district;
 
 fn main() {

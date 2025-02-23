@@ -1,5 +1,3 @@
-// I AM NOT DONE
-
 mod conjecture;
 
 fn main() {
