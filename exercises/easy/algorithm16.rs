@@ -11,8 +11,45 @@
 
 use std::fmt::{self, Display, Formatter};
 
+// (row, col) => (col, max(row) - row - 1)  (2,1) =>(1, 0)
 pub fn rotate_matrix_90_degrees(matrix: &mut Vec<Vec<i32>>) {
-    // TODO: Implement the logic to rotate the matrix 90 degrees in place
+    let max_row = matrix.len();
+    let max_col = matrix[0].len();
+    if max_row <= 1 || max_col <= 1 {
+        return;
+    }
+
+    if max_row > max_col {
+        matrix.iter_mut().for_each(|row| row.resize(max_row, 0));
+    } else {
+        matrix.resize(max_col,vec![0; max_row]);
+    }
+
+    for layer in 0..max_row/2 {
+        let last = max_row - 1 - layer;
+        for i in layer..last {
+            let offset = i - layer;
+            
+            // Save top
+            let top = matrix[layer][i];
+            
+            // Move left to top
+            matrix[layer][i] = matrix[last-offset][layer];
+            
+            // Move bottom to left
+            matrix[last-offset][layer] = matrix[last][last-offset];
+            
+            // Move right to bottom
+            matrix[last][last-offset] = matrix[i][last];
+            
+            // Move top to right
+            matrix[i][last] = top;
+        }
+    }
+
+
+    matrix.iter_mut().for_each(|row| row.resize(max_row, 0));
+    matrix.resize(max_col, vec![0; max_row]);
 }
 
 #[cfg(test)]
